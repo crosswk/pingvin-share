@@ -13,7 +13,7 @@ export class NWCDProvider implements OAuthProvider<NWCDToken> {
         new URLSearchParams({
           response_type: "code",
           client_id: this.config.get("oauth.nwcd-clientId"),
-          redirect_uri:
+          redirect_uri: 
             this.config.get("general.appUrl") + "/api/oauth/callback/nwcd",
           state: state,
         }).toString()
@@ -53,15 +53,6 @@ export class NWCDProvider implements OAuthProvider<NWCDToken> {
       email: user.email
     };
   }
-  private async getNWCDUser(token: OAuthToken<NWCDToken>): Promise<NWCDUser> {
-    const res = await fetch("https://sso.nwcdcloud.cn/api/user", {
-      headers: {
-        Authorization: `${token.tokenType} ${token.accessToken}`
-      }
-    });
-    return await res.json() as NWCDUser;
-  }
-  // 添加注销方法
   async logout(token: OAuthToken<NWCDToken>): Promise<void> {
     const res = await fetch("https://sso.nwcdcloud.cn/api/auth/logout", {
       method: "POST",
@@ -69,13 +60,20 @@ export class NWCDProvider implements OAuthProvider<NWCDToken> {
         Authorization: `${token.tokenType} ${token.accessToken}`
       }
     });
-    if (!res.ok) {
-      throw new ErrorPageException("logout_failed", undefined, ["provider_nwcd"]);
+    const response = await res.json() as NWCDLogoutResponse;
+    
+    // 检查注销是否成功
+    if (response.error_code !== 20000 && response.error_code !== 20004) {
+      throw new Error(`Logout failed: ${response.message}`);
     }
-    const response = await res.json();
-    if (response.error_code !== 20000) {
-      throw new ErrorPageException("logout_failed", undefined, ["provider_nwcd"]);
-    }
+  }
+  private async getNWCDUser(token: OAuthToken<NWCDToken>): Promise<NWCDUser> {
+    const res = await fetch("https://sso.nwcdcloud.cn/api/user", {
+      headers: {
+        Authorization: `${token.tokenType} ${token.accessToken}`
+      }
+    });
+    return await res.json() as NWCDUser;
   }
 }
 interface NWCDToken {
@@ -94,5 +92,9 @@ interface NWCDUser {
     name: string;
   }>;
   permissions: string[];
+}
+interface NWCDLogoutResponse {
+  error_code: number;
+  message: string;
 }
 
