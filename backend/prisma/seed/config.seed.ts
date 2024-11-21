@@ -194,6 +194,19 @@ const configVariables: ConfigVariables = {
     }
   },
   oauth: {
+    "nwcd-enabled": {
+      type: "boolean", 
+      defaultValue: "false",
+    },
+    "nwcd-clientId": {
+      type: "string",
+      defaultValue: "",
+    },
+    "nwcd-clientSecret": {
+      type: "string",
+      defaultValue: "",
+      obscured: true,
+    },
     "allowRegistration": {
       type: "boolean",
       defaultValue: "true",

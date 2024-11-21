@@ -19,6 +19,7 @@ const getOAuthIcon = (provider: string) => {
     github: <SiGithub />,
     discord: <SiDiscord />,
     oidc: <SiOpenid />,
+    nwcd: <SiGoogle /> // 添加NWCD的图标组件
   }[provider];
 };
 

@@ -35,10 +35,10 @@ export default {
   "signin.title": "Welcome back",
   "signin.description": "You don't have an account yet?",
   "signin.button.signup": "Sign up",
-  "signin.input.email-or-username": "Email or username",
-  "signin.input.email-or-username.placeholder": "Your email or username",
+  "signin.input.email-or-username": "Username",
+  "signin.input.email-or-username.placeholder": "Your employee number",
   "signin.input.password": "Password",
-  "signin.input.password.placeholder": "Your password",
+  "signin.input.password.placeholder": "Your AD Account password",
   "signin.button.submit": "Sign in",
   "signIn.notify.totp-required.title": "Two-factor authentication required",
   "signIn.notify.totp-required.description":
@@ -50,7 +50,7 @@ export default {
   "signIn.oauth.microsoft": "Microsoft",
   "signIn.oauth.discord": "Discord",
   "signIn.oauth.oidc": "OpenID",
-
+  "signIn.oauth.nwcd": "Sign in with NWCD SSO",
   // END /auth/signin
 
   // /auth/signup
@@ -104,6 +104,7 @@ export default {
   "account.card.oauth.microsoft": "Microsoft",
   "account.card.oauth.discord": "Discord",
   "account.card.oauth.oidc": "OpenID",
+  "account.card.oauth.nwcd": "NWCD SSO",
   "account.card.oauth.link": "Link",
   "account.card.oauth.unlink": "Unlink",
   "account.card.oauth.unlinked": "Unlinked",
@@ -286,14 +287,9 @@ export default {
   // /upload
   "upload.title": "Upload",
 
-  "upload.notify.confirm-leave":
-    "Are you sure you want to leave this page? Your upload will be canceled.",
   "upload.notify.generic-error":
     "An error occurred while finishing your share.",
   "upload.notify.count-failed": "{count} files failed to upload. Trying again.",
-  "upload.reverse-share.error.invalid.title": "Invalid reverse share link",
-  "upload.reverse-share.error.invalid.description":
-    "This reverse share has expired or is invalid.",
 
   // Dropzone.tsx
   "upload.dropzone.title": "Upload files",
@@ -415,9 +411,6 @@ export default {
   "admin.config.general.app-url": "App URL",
   "admin.config.general.app-url.description":
     "On which URL Pingvin Share is available",
-  "admin.config.general.secure-cookies": "Secure cookies",
-  "admin.config.general.secure-cookies.description":
-    "Whether to set the secure flag on cookies. If enabled, the site will not function when accessed over HTTP.",
   "admin.config.general.show-home-page": "Show home page",
   "admin.config.general.show-home-page.description":
     "Whether to show the home page",
@@ -438,7 +431,7 @@ export default {
     "Subject of the email which gets sent to the share recipients.",
   "admin.config.email.share-recipients-message": "Share recipients message",
   "admin.config.email.share-recipients-message.description":
-    "Message which gets sent to the share recipients. Available variables:\n {creator} - The username of the creator of the share\n {creatorEmail} - The email of the creator of the share\n {shareUrl} - The URL of the share\n {desc} - The description of the share\n {expires} - The expiration date of the share\n These variables will be replaced with the actual value.",
+    "Message which gets sent to the share recipients. Available variables:\n {creator} - The username of the creator of the share\n {shareUrl} - The URL of the share\n {desc} - The description of the share\n {expires} - The expiration date of the share\n These variables will be replaced with the actual value.",
   "admin.config.email.reverse-share-subject": "Reverse share subject",
   "admin.config.email.reverse-share-subject.description":
     "Subject of the sent email when someone created a share with your reverse share link.",
@@ -587,7 +580,9 @@ export default {
   "admin.config.oauth.oidc-client-secret": "OpenID Connect Client secret",
   "admin.config.oauth.oidc-client-secret.description":
     "Client secret of the OpenID Connect OAuth app",
-
+  "admin.config.oauth.nwcd-enabled": "Enable NWCD SSO Login",
+  "admin.config.oauth.nwcd-client-id": "NWCD SSO Client ID", 
+  "admin.config.oauth.nwcd-client-secret": "NWCD SSO Client Secret",
   "admin.config.category.ldap": "LDAP",
   "admin.config.ldap.enabled": "Enable LDAP",
   "admin.config.ldap.enabled.description":
@@ -646,7 +641,7 @@ export default {
   "error.param.provider_microsoft": "Microsoft",
   "error.param.provider_discord": "Discord",
   "error.param.provider_oidc": "OpenID Connect",
-
+  "error.param.provider_nwcd": "Invalid NWCD SSO configuration",
   // Common translations
   "common.button.save": "Save",
   "common.button.create": "Create",
