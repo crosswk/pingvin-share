@@ -13,7 +13,7 @@ export class NWCDProvider implements OAuthProvider<NWCDToken> {
         new URLSearchParams({
           response_type: "code",
           client_id: this.config.get("oauth.nwcd-clientId"),
-          redirect_uri: 
+          redirect_uri:
             this.config.get("general.appUrl") + "/api/oauth/callback/nwcd",
           state: state,
         }).toString()
@@ -61,6 +61,22 @@ export class NWCDProvider implements OAuthProvider<NWCDToken> {
     });
     return await res.json() as NWCDUser;
   }
+  // 添加注销方法
+  async logout(token: OAuthToken<NWCDToken>): Promise<void> {
+    const res = await fetch("https://sso.nwcdcloud.cn/api/auth/logout", {
+      method: "POST",
+      headers: {
+        Authorization: `${token.tokenType} ${token.accessToken}`
+      }
+    });
+    if (!res.ok) {
+      throw new ErrorPageException("logout_failed", undefined, ["provider_nwcd"]);
+    }
+    const response = await res.json();
+    if (response.error_code !== 20000) {
+      throw new ErrorPageException("logout_failed", undefined, ["provider_nwcd"]);
+    }
+  }
 }
 interface NWCDToken {
   access_token: string;
@@ -79,3 +95,4 @@ interface NWCDUser {
   }>;
   permissions: string[];
 }
+
