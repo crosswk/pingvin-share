@@ -5,6 +5,7 @@ import {
   SiMicrosoft,
   SiOpenid,
 } from "react-icons/si";
+import { BsCloud } from "react-icons/bs";
 import React from "react";
 import api from "../services/api.service";
 
@@ -19,7 +20,7 @@ const getOAuthIcon = (provider: string) => {
     github: <SiGithub />,
     discord: <SiDiscord />,
     oidc: <SiOpenid />,
-    nwcd: <SiGoogle /> // 添加NWCD的图标组件
+    nwcd: <BsCloud /> // 添加NWCD的图标组件
   }[provider];
 };
 
